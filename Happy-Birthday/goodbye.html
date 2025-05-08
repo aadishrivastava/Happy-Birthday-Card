@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goodbye 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .message-container {
+      text-align: center;
+      color: purple;
+      max-width: 90%;
+      position: relative;
+    }
+
+    .goodbye-text {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      white-space: normal; 
+      opacity: 0; 
+      transition: opacity 0.5s ease-in-out;
+      display: inline-block;
+      word-wrap: break-word; 
+    }
+
+    .final-message {
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkleAnim 2s linear infinite;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    @keyframes sparkleAnim {
+      0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    
+    @media (max-width: 768px) {
+      .goodbye-text {
+        font-size: 1.8rem; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .goodbye-text {
+        font-size: 1.5rem; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <audio id="birthdaySong" preload="auto" loop muted>
+        <source src="happy-birthday-334876.mp3" type="audio/mp3">
+    </audio>
+
+  <div class="message-container">
+    <div class="goodbye-text" id="goodbyeText"></div>
+    <div class="final-message">Aakhir mein sirf itna kehna hai... Tum ho toh sab kuch hai. Now go smile for me 🥺💫</div>
+  </div>
+
+  <script>
+    const goodbyeText = document.getElementById('goodbyeText');
+    const finalMessage = document.querySelector('.final-message');
+
+    const sentence = "And that's a wrap... 💖";
+    let currentIndex = 0;
+
+    function typeText() {
+      if (currentIndex < sentence.length) {
+        goodbyeText.innerHTML += sentence.charAt(currentIndex);
+        currentIndex++;
+        setTimeout(typeText, 100); // Typing speed
+      } else {
+        setTimeout(() => {
+          finalMessage.style.opacity = 1;
+          generateSparkles();
+        }, 500);
+      }
+    }
+
+    function generateSparkles() {
+      for (let i = 0; i < 100; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+        sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+        sparkle.style.animationDelay = `${Math.random() * 2}s`;
+        sparkle.style.background = `hsl(${Math.random() * 360}, 100%, 80%)`;
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 4000);
+      }
+    }
+
+    // Start typing the text
+    setTimeout(() => {
+      goodbyeText.style.opacity = 1;
+      typeText();
+    }, 500);
+  </script>
+
+</body>
+</html>

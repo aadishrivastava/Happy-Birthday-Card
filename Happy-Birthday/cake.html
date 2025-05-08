@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Cake Cutting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f9e3e3, #b8e0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow-y:auto;
+    }
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.8rem;
+      color: #ff4081;
+      margin: 0 0 10px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .cake-container {
+      text-align: center;
+    }
+
+    .cake {
+      width: 200px;
+      height: 150px;
+      background: #ffb6c1;
+      border-radius: 20px;
+      position: relative;
+      margin: 0 auto;
+      border: 5px solid #f06292;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cake:hover {
+      transform: scale(1.05);
+    }
+
+    .icing {
+      width: 100%;
+      height: 50px;
+      background: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      position: absolute;
+      top: 0;
+    }
+
+    .candle {
+      width: 12px;
+      height: 40px;
+      background: red;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+
+    .flame {
+      width: 15px;
+      height: 15px;
+      background: yellow;
+      border-radius: 50%;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 15px yellow;
+      animation: flicker 1.5s infinite alternate;
+    }
+
+    .knife {
+      position: absolute;
+      top: -40px;
+      left: 100px;
+      display: none;
+      transform-origin: top center;
+    }
+
+    .knife img {
+      width: 50px;
+      height: 150px;
+      object-fit: contain;
+      animation: none;
+    }
+
+    @keyframes cutAnimation {
+        0% { transform: rotate(0deg) translateY(0); }
+        50% { transform: rotate(-60deg) translateY(50px); }
+        100% { transform: rotate(0deg) translateY(0); }
+    }
+
+    @keyframes flicker {
+      from { opacity: 0.8; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.1); }
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    .container h3 {
+      color: #444;
+      font-weight: 500;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      font-family:'Pacifico', cursive ;
+    }
+
+    .nav-links {
+      margin-top: 40px;
+    }
+
+    .nav-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #f06292;
+      padding: 10px 15px;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #ec407a;
+      font-size: 18px;
+    }
+
+    #countdown {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4A148C;
+      margin-bottom: 50px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto; /* Allow scrolling on mobile */
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .cake {
+        width: 180px;
+        height: 130px;
+      }
+
+      .container h3 {
+        font-size: 1.2rem;
+      }
+
+      .nav-links a {
+        padding: 8px 12px;
+      }
+
+      #countdown {
+        font-size: 18px;
+      }
+
+      .knife img {
+        width: 45px;
+        height: 135px;
+      }
+
+      .cake-container {
+        padding: 10px;
+      }
+    }
+
+    /* For very small screens */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .cake {
+        width: 160px;
+        height: 120px;
+      }
+
+      .container h3 {
+        font-size: 1rem;
+      }
+
+      .nav-links a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      #countdown {
+        font-size: 16px;
+      }
+
+      .cake-container {
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="birthdaySong" preload="auto" loop muted>
+    <source src="happy-birthday-334876.mp3" type="audio/mp3">
+</audio>
+
+  <div class="cake-container">
+    <h1>🎂 Happy Birthday to you 🎉</h1>
+    
+    <div id="countdown">Cutting starts in 3...</div>
+
+    <div class="cake" id="cake">
+      <div class="icing"></div>
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+      <div class="knife" id="knife">
+        <img src="chaku-removebg-preview.png" alt="Knife"> 
+      </div>
+    </div>
+    <canvas class="confetti" id="confettiCanvas"></canvas>
+
+    <div class="container">
+      <h3>Kaam chala lo saamne se alsi waala pakka....</h3>
+      <div class="nav-links">
+        <a href="index.html" target="content">Back to Home</a>
+        <a href="memories.html" target="content">Memories</a>
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let seconds = 4;
+    const countdownEl = document.getElementById('countdown');
+    const cake = document.getElementById('cake');
+    const knife = document.getElementById('knife');
+  
+    cake.style.pointerEvents = "none"; 
+  
+    const countdown = setInterval(() => {
+      seconds--;
+      countdownEl.textContent = `Cutting starts in ${seconds}...`;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        countdownEl.textContent = "Click on the cake to cut it! 🎂";
+        cake.style.pointerEvents = "auto";
+      }
+    }, 1000);
+  
+    cake.addEventListener('click', function() {
+  knife.style.display = 'block';
+  const knifeImg = knife.querySelector('img');
+  knifeImg.style.animation = 'cutAnimation 1s ease forwards';
+
+  setTimeout(() => {
+    startConfetti();
+    alert("Yay! Cake cut successfully!, Now head towards Memories 🎂🎉");
+  }, 1000);
+});
+
+  
+    function startConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+  
+      const pieces = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 2 + 2,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+      }));
+  
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        });
+      }
+  
+      function updateConfetti() {
+        pieces.forEach(p => {
+          p.y += p.d;
+          if (p.y > canvas.height) {
+            p.y = 0;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+        drawConfetti();
+        requestAnimationFrame(updateConfetti);
+      }
+  
+      updateConfetti();
+    }
+  </script>
+  <script src="audiocontrol.js"></script>
+  
+</body>
+</html>

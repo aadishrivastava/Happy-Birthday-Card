@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <audio id="birthdaySong" preload="auto" loop muted>
+        <source src="happy-birthday-334876.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="container" >
+        <h1>📸Some Memories Together!</h1>
+        <h3 class="photos">Click on each photo one by one to reveal them</h3>
+        <div class="memories-scroll-area">
+        <div class="memories-wrapper">
+            <img src="download.jpeg" alt="Memorable Moments" class="memories-img img1"> 
+            <img src="download.jpeg" alt="moments2" class="memories-img"> 
+            <img src="download.jpeg" alt="moments2" class="memories-img img3"> 
+            <img src="download.jpeg" alt="moments2" class="memories-img"> 
+        </div>
+    </div>
+        <h2 class="sabd">Hain na sathh mein tooo Gooooddd</h2>
+               
+        
+        <div class="nav-links">
+            <a href="index.html" target="content">Back to Home</a>
+            <a href="wishes.html" target="content">Wishes</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = document.querySelectorAll(".memories-img");
+    
+            images.forEach(img => {
+                img.addEventListener("click", () => {
+                    img.style.opacity = "1";
+                });
+            });
+        });
+    </script>
+    
+    
+    <script src="audiocontrol.js"></script>
+    
+</body>
+</html>
